@@ -23,6 +23,27 @@ public class ConexionSql extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void buscarTablas(){
+     String bases="";
+        try{            
+            Statement sql = Conexion.conector().createStatement();            
+            String consulta="SHOW TABLES FROM citameddb;";
+            ResultSet resultado = sql.executeQuery(consulta);
+            
+            while(resultado.next()){
+            bases +=resultado.getString(1)+"\n";
+            System.out.println("resultado :"+bases);
+            
+            }
+             JOptionPane.showMessageDialog(null, bases);
+             System.out.println("resultado :"+bases);
+            }catch(SQLException ex){
+             JOptionPane.showMessageDialog(null, ex);
+             System.out.println("error"+ex);        
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,23 +86,8 @@ public class ConexionSql extends javax.swing.JFrame {
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
       
-        String bases="";
-        try{            
-            Statement sql = Conexion.conector().createStatement();            
-            String consulta="SHOW TABLES FROM citameddb;";
-            ResultSet resultado = sql.executeQuery(consulta);
-            
-            while(resultado.next()){
-            bases +=resultado.getString(1)+"\n";
-            System.out.println("resultado :"+bases);
-            
-            }
-             JOptionPane.showMessageDialog(null, bases);
-             System.out.println("resultado :"+bases);
-            }catch(SQLException ex){
-             JOptionPane.showMessageDialog(null, ex);
-             System.out.println("error"+ex);        
-        }
+       buscarTablas();
+       
     }//GEN-LAST:event_btnConectarActionPerformed
 
     /**
