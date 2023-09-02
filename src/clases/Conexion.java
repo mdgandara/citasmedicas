@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Sena
+ * @author MARIO GANDARA
  */
 public class Conexion {
   /**  
@@ -28,16 +28,14 @@ public class Conexion {
                 return null;
             }
     }
-    **/
-   
+    **/   
     private static Connection con;
   // Declaramos los datos de conexion a la bd
     private static final String driver="com.mysql.cj.jdbc.Driver";
     private static final String user="root";
     private static final String pass="543201";
     private static final String url="jdbc:mysql://localhost:3309/citameddb";
-  // Funcion que va conectarse a mi bd de mysql
-  
+  // Funcion que va conectarse a mi bd de mysql  
     public static Connection conector() {
   // Reseteamos a null la conexion a la bd
         con=null;

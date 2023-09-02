@@ -15,28 +15,23 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class UsuarioEditar {
-
     // Método para verificar si un usuario existe por su cédula
     public boolean usuarioExiste(int cedula) {
         Connection conexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
         try {
             // Obtener la conexión desde la clase Conexion
             conexion = Conexion.conector(); // Utiliza el método conector de tu clase Conexion
-
             // Consulta SQL para buscar un usuario por su cédula
             String sql = "SELECT * FROM usuarios WHERE cedula_usuario=?";
             preparedStatement = conexion.prepareStatement(sql);
             preparedStatement.setInt(1, cedula);
             resultSet = preparedStatement.executeQuery();
-
             // Si se encuentra al menos un registro, el usuario existe
           //  System.out.println("Busqueda");
          //   System.out.println(resultSet.next());
-            return resultSet.next();
-            
+            return resultSet.next();           
 
         } catch (SQLException e) {
             e.printStackTrace();
