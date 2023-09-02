@@ -258,7 +258,7 @@ public class ConexionSql extends javax.swing.JFrame {
     }//GEN-LAST:event_InsertarActionPerformed
 
     private void MostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarUsuariosActionPerformed
-        mostrarUsuarios();
+//        mostrarUsuarios();
         System.out.println("Segundo metodo");
         mostrarUsuarios2();
         //ejemplo
@@ -277,7 +277,7 @@ public class ConexionSql extends javax.swing.JFrame {
         if (usuarioEditar.usuarioExiste(cedula)) {
             System.out.println(usuarioEditar.usuarioExiste(cedula));
             // Ejemplo de edición de un usuario ficticio
-            usuarioEditar.editarUsuario(cedula, "NuevoNombre", "NuevosApellidos", "5555555555", "NuevaDireccion", "nuevo@example.com");
+            usuarioEditar.editarUsuario(86073613, "Juan Diego", "Arias Duque", "3002722164", "sincelejo", "nuevo@example.com");
         } 
     }//GEN-LAST:event_EditarActionPerformed
 
