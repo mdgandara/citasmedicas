@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -42,8 +43,111 @@ public class ConexionSql extends javax.swing.JFrame {
              System.out.println("error"+ex);        
         }
     }
+    public void mostrarUsuarios2() {
+    StringBuilder bases = new StringBuilder(); // Usamos StringBuilder para una mejor eficiencia
+
+    try {
+        Connection conexion = Conexion.conector();
+        Statement sql = conexion.createStatement();
+        String consulta = "SELECT * FROM usuarios;";
+        ResultSet resultado = sql.executeQuery(consulta);
+
+        while (resultado.next()) {
+            // Obtenemos todos los campos de cada registro
+            int cedula = resultado.getInt("cedula_usuario");
+            String nombre = resultado.getString("nombre_usuario");
+            String apellidos = resultado.getString("apellidos_usuario");
+            String celular = resultado.getString("celular_usuario");
+            String direccion = resultado.getString("direccion_usuario");
+            String email = resultado.getString("email_usuario");
+
+            // Agregamos los valores al StringBuilder
+            bases.append("Cedula: ").append(cedula).append("\n");
+            bases.append("Nombre: ").append(nombre).append("\n");
+            bases.append("Apellidos: ").append(apellidos).append("\n");
+            bases.append("Celular: ").append(celular).append("\n");
+            bases.append("Dirección: ").append(direccion).append("\n");
+            bases.append("Email: ").append(email).append("\n");
+            bases.append("\n");
+        }
+
+        JOptionPane.showMessageDialog(null, bases.toString());
+        System.out.println("Resultado:\n" + bases.toString());
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex);
+        System.out.println("Error: " + ex);
+    }
+}
     
+     public void mostrarUsuarios(){
+     String bases="";
+        try{            
+            Statement sql = Conexion.conector().createStatement();            
+            String consulta="SELECT * FROM usuarios;;";
+            ResultSet resultado = sql.executeQuery(consulta);
+            
+            while(resultado.next()){
+            bases +=resultado.getString(1)+"\n";
+            System.out.println("resultado :"+bases);
+            
+            }
+             JOptionPane.showMessageDialog(null, bases);
+             System.out.println("resultado :"+bases);
+            }catch(SQLException ex){
+             JOptionPane.showMessageDialog(null, ex);
+             System.out.println("error"+ex);        
+        }
+    }
     
+ public void insertarUsuario(int cedula, String nombre, String apellidos, String celular, String direccion, String email) {
+    Connection conexion = null;
+    PreparedStatement preparedStatement = null;
+
+    try {
+        // Obtiene la conexión desde la clase Conexion
+        conexion = Conexion.conector();
+
+        // Consulta SQL de inserción
+        String sql = "INSERT INTO usuarios (cedula_usuario, nombre_usuario, apellidos_usuario, celular_usuario, direccion_usuario, email_usuario) VALUES (?, ?, ?, ?, ?, ?)";
+
+        // Crea la declaración preparada
+        preparedStatement = conexion.prepareStatement(sql);
+
+        // Establece los valores de los parámetros
+        preparedStatement.setInt(1, cedula);
+        preparedStatement.setString(2, nombre);
+        preparedStatement.setString(3, apellidos);
+        preparedStatement.setString(4, celular);
+        preparedStatement.setString(5, direccion);
+        preparedStatement.setString(6, email);
+
+        // Ejecuta la inserción
+        preparedStatement.executeUpdate();
+        
+        // Mostrar la lista de tablas después de la inserción
+        buscarTablas();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            // Cierra la conexión y la declaración preparada
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+} // fin insertarUsuarios
+ 
+ 
+ 
+ 
+ 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +158,10 @@ public class ConexionSql extends javax.swing.JFrame {
     private void initComponents() {
 
         btnConectar = new javax.swing.JButton();
+        Insertar = new javax.swing.JButton();
+        MostrarUsuarios = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,21 +172,51 @@ public class ConexionSql extends javax.swing.JFrame {
             }
         });
 
+        Insertar.setText("Insertar");
+        Insertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InsertarActionPerformed(evt);
+            }
+        });
+
+        MostrarUsuarios.setText("Mostrar Usuarios");
+        MostrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarUsuariosActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(btnConectar)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnConectar)
+                        .addGap(38, 38, 38)
+                        .addComponent(Insertar)
+                        .addGap(49, 49, 49)
+                        .addComponent(MostrarUsuarios)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(btnConectar)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConectar)
+                    .addComponent(Insertar)
+                    .addComponent(MostrarUsuarios))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,6 +227,16 @@ public class ConexionSql extends javax.swing.JFrame {
        buscarTablas();
        
     }//GEN-LAST:event_btnConectarActionPerformed
+
+    private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
+        insertarUsuario(86073613, "MARIO DAVID", "GANDARA ROMERO", "3012710484", "MONTERIA", "mdgandara@soy.sena.edu.co");
+    }//GEN-LAST:event_InsertarActionPerformed
+
+    private void MostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarUsuariosActionPerformed
+        mostrarUsuarios();
+        System.out.println("Segundo metodo");
+        mostrarUsuarios2();
+    }//GEN-LAST:event_MostrarUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,6 +274,10 @@ public class ConexionSql extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Insertar;
+    private javax.swing.JButton MostrarUsuarios;
     private javax.swing.JButton btnConectar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
