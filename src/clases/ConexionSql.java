@@ -162,6 +162,7 @@ public class ConexionSql extends javax.swing.JFrame {
         MostrarUsuarios = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        Editar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -190,21 +191,31 @@ public class ConexionSql extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        Editar.setText("Editar");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnConectar)
-                        .addGap(38, 38, 38)
-                        .addComponent(Insertar)
-                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Editar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnConectar)
+                                .addGap(38, 38, 38)
+                                .addComponent(Insertar)))
+                        .addGap(18, 18, 18)
                         .addComponent(MostrarUsuarios)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,9 +225,11 @@ public class ConexionSql extends javax.swing.JFrame {
                     .addComponent(btnConectar)
                     .addComponent(Insertar)
                     .addComponent(MostrarUsuarios))
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
+                .addComponent(Editar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGap(67, 67, 67))
         );
 
         pack();
@@ -237,6 +250,18 @@ public class ConexionSql extends javax.swing.JFrame {
         System.out.println("Segundo metodo");
         mostrarUsuarios2();
     }//GEN-LAST:event_MostrarUsuariosActionPerformed
+
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+       
+        // creacion de la instancia u objeto
+        UsuarioEditar usuarioEditar = new UsuarioEditar();
+        // Verificar la existencia del usuario antes de editar
+        int cedula = 86073613; // Cédula del usuario a editar
+        if (usuarioEditar.usuarioExiste(cedula)) {
+            // Ejemplo de edición de un usuario ficticio
+            usuarioEditar.editarUsuario(cedula, "NuevoNombre", "NuevosApellidos", "5555555555", "NuevaDireccion", "nuevo@example.com");
+        } 
+    }//GEN-LAST:event_EditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,6 +299,7 @@ public class ConexionSql extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Editar;
     private javax.swing.JButton Insertar;
     private javax.swing.JButton MostrarUsuarios;
     private javax.swing.JButton btnConectar;
