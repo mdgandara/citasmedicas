@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Sena
+ * @author Mario Gandara
  */
 public class ConexionSql extends javax.swing.JFrame {
 
