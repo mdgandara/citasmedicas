@@ -163,6 +163,7 @@ public class ConexionSql extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         Editar = new javax.swing.JButton();
+        Eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -198,6 +199,13 @@ public class ConexionSql extends javax.swing.JFrame {
             }
         });
 
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,8 +221,13 @@ public class ConexionSql extends javax.swing.JFrame {
                                 .addComponent(btnConectar)
                                 .addGap(38, 38, 38)
                                 .addComponent(Insertar)))
-                        .addGap(18, 18, 18)
-                        .addComponent(MostrarUsuarios)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(MostrarUsuarios))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(Eliminar)))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -226,7 +239,9 @@ public class ConexionSql extends javax.swing.JFrame {
                     .addComponent(Insertar)
                     .addComponent(MostrarUsuarios))
                 .addGap(18, 18, 18)
-                .addComponent(Editar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Editar)
+                    .addComponent(Eliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
@@ -249,6 +264,11 @@ public class ConexionSql extends javax.swing.JFrame {
         mostrarUsuarios();
         System.out.println("Segundo metodo");
         mostrarUsuarios2();
+        //ejemplo
+      //  String textoParaMostrar = mostrarUsuarios2();
+
+        // Establecer el texto en jTextArea1
+    //    jTextArea1.setText(textoParaMostrar);
     }//GEN-LAST:event_MostrarUsuariosActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
@@ -258,10 +278,23 @@ public class ConexionSql extends javax.swing.JFrame {
         // Verificar la existencia del usuario antes de editar
         int cedula = 86073613; // Cédula del usuario a editar
         if (usuarioEditar.usuarioExiste(cedula)) {
+            System.out.println(usuarioEditar.usuarioExiste(cedula));
             // Ejemplo de edición de un usuario ficticio
             usuarioEditar.editarUsuario(cedula, "NuevoNombre", "NuevosApellidos", "5555555555", "NuevaDireccion", "nuevo@example.com");
         } 
     }//GEN-LAST:event_EditarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // creacion de la instancia u objeto
+        UsuarioBorrar usuarioBorrar = new UsuarioBorrar();
+        // Verificar la existencia del usuario antes de editar
+        int cedula = 86073613; // Cédula del usuario a editar
+        if (usuarioBorrar.usuarioExiste(cedula)) {
+            System.out.println(usuarioBorrar.usuarioExiste(cedula));
+            // Ejemplo de edición de un usuario ficticio
+            usuarioBorrar.borrarUsuario(cedula);
+        } 
+    }//GEN-LAST:event_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,6 +333,7 @@ public class ConexionSql extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Editar;
+    private javax.swing.JButton Eliminar;
     private javax.swing.JButton Insertar;
     private javax.swing.JButton MostrarUsuarios;
     private javax.swing.JButton btnConectar;
