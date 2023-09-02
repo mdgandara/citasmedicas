@@ -66,8 +66,7 @@ public class ConexionSql extends javax.swing.JFrame {
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
       
         String bases="";
-        try{
-            
+        try{            
             Statement sql = Conexion.conector().createStatement();            
             String consulta="SHOW TABLES FROM citameddb;";
             ResultSet resultado = sql.executeQuery(consulta);
@@ -81,8 +80,7 @@ public class ConexionSql extends javax.swing.JFrame {
              System.out.println("resultado :"+bases);
             }catch(SQLException ex){
              JOptionPane.showMessageDialog(null, ex);
-             System.out.println("error"+ex);
-        
+             System.out.println("error"+ex);        
         }
     }//GEN-LAST:event_btnConectarActionPerformed
 
